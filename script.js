@@ -162,27 +162,28 @@ var includeSpecial = confirm("Do you want to include special characters?");
 //   b. If user has at least 1 character set then continue the program
 var generatedPassword = "";
 
+// below solution doesn't work as need to check password length after every addition of a character - added && statement to check current password length
 if (includeLowercase || includeUppercase || includeNumeric || includeSpecial) {
-  for (var i = 0; i < passwordLength; i++) {
-    includeLowercase
+  while (generatedPassword.length < passwordLength) {
+    includeLowercase && generatedPassword.length < passwordLength
       ? (generatedPassword +=
           lowerCasedCharacters[
             Math.floor(Math.random() * lowerCasedCharacters.length)
           ])
       : (generatedPassword += "");
-    includeUppercase
+    includeUppercase && generatedPassword.length < passwordLength
       ? (generatedPassword +=
           upperCasedCharacters[
             Math.floor(Math.random() * upperCasedCharacters.length)
           ])
       : (generatedPassword += "");
-    includeNumeric
+    includeNumeric && generatedPassword.length < passwordLength
       ? (generatedPassword +=
           numericCharacters[
             Math.floor(Math.random() * numericCharacters.length)
           ])
       : (generatedPassword += "");
-    includeSpecial
+    includeSpecial && generatedPassword.length < passwordLength
       ? (generatedPassword +=
           specialCharacters[
             Math.floor(Math.random() * specialCharacters.length)
