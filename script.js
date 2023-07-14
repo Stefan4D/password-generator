@@ -90,17 +90,16 @@ var upperCasedCharacters = [
 
 // Function to prompt user for password options
 function getPasswordOptions() {
-  // 1. Prompt user for length of password
+  // Prompt user for length of password
   var passwordLength = prompt(
     "What length of password do you want?\n Between 8 and 128 characters."
   );
 
-  // 2. Validate user input is between 8 and 128 characters
+  // Validate user input is between 8 and 128 characters
   //   a. Reject and re-prompt if user selects a value out of bounds
   //   b. If value is valid then continue through the program
-
   // changed to a while() loop to check passwordLength and continue to re-prompt
-  // if loop checks for null value where user has cancelled out of the prompt
+  // if statement checks for null value where user has cancelled out of the prompt
   while (passwordLength < 8 || passwordLength > 128) {
     if (passwordLength === null) {
       break;
@@ -112,11 +111,6 @@ function getPasswordOptions() {
 
   // check for null value for passwordLength
   if (passwordLength !== null) {
-    // 3. Prompt user if they want to include each character type:
-    //   a. Lowercase characters
-    //   b. Uppercase characters
-    //   c. Numeric characters
-    //   d. Special characters
     var includeLowercase = confirm(
       "Do you want to include lowercase characters?"
     );
@@ -141,7 +135,9 @@ function getPasswordOptions() {
 }
 
 // Function for getting a random element from an array
-function getRandom(arr) {}
+function getRandom(arr) {
+  return arr[Math.floor(Math.random() * arr.length)];
+}
 
 // Function to generate password with user input
 function generatePassword() {
@@ -154,9 +150,6 @@ function generatePassword() {
     passwordLength,
   ] = getPasswordOptions();
 
-  // 4. Validate that the user selected at least 1 of the character sets
-  //   a. If user did not select any character sets then re-prompt them
-  //   b. If user has at least 1 character set then continue the program
   var generatedPassword = "";
 
   // if any of these conditions are true, then the while loop will be triggered
@@ -167,37 +160,25 @@ function generatePassword() {
     includeSpecial
   ) {
     // this solution puts the character types in a set order, so although each character individually is selected at random, their pattern is pre-determined by the character sets included.
+    // ternary operator 'else' statement set to null to reduce amount of code - this works as the returned value isn't used anywhere
     while (generatedPassword.length < passwordLength) {
       includeLowercase && generatedPassword.length < passwordLength
-        ? (generatedPassword +=
-            lowerCasedCharacters[
-              Math.floor(Math.random() * lowerCasedCharacters.length)
-            ])
-        : (generatedPassword += "");
+        ? (generatedPassword += getRandom(lowerCasedCharacters))
+        : null;
       includeUppercase && generatedPassword.length < passwordLength
-        ? (generatedPassword +=
-            upperCasedCharacters[
-              Math.floor(Math.random() * upperCasedCharacters.length)
-            ])
-        : (generatedPassword += "");
+        ? (generatedPassword += getRandom(upperCasedCharacters))
+        : null;
       includeNumeric && generatedPassword.length < passwordLength
-        ? (generatedPassword +=
-            numericCharacters[
-              Math.floor(Math.random() * numericCharacters.length)
-            ])
-        : (generatedPassword += "");
+        ? (generatedPassword += getRandom(numericCharacters))
+        : null;
       includeSpecial && generatedPassword.length < passwordLength
-        ? (generatedPassword +=
-            specialCharacters[
-              Math.floor(Math.random() * specialCharacters.length)
-            ])
-        : (generatedPassword += "");
+        ? (generatedPassword += getRandom(specialCharacters))
+        : null;
     }
   } else {
-    // this is handles if the user cancels out at the very beginning and prevents this alert popping up as passwordLength will be undefined from the empty array
+    // handles if the user cancels at the very beginning and prevents this alert popping up as passwordLength will be undefined from the empty array
     if (passwordLength !== undefined) {
       alert("You need to include at least 1 character set!");
-      console.log("You need to include at least 1 character set!");
     }
   }
   return generatedPassword;
@@ -212,33 +193,7 @@ function writePassword() {
   var passwordText = document.querySelector("#password");
 
   passwordText.value = password;
-  // passwordText.value = generatedPassword;
 }
 
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
-
-/* 
-
-Requirements:
-- Generate a password when the button is clicked
-- Present a series of prompts for password criteria
-  - Length of password
-    - At least 8 characters but no more than 128.
-  - Character types
-    - Lowercase
-    - Uppercase
-    - Numeric
-    - Special characters ($@%&*, etc)
-  - Code should validate for each input and at least one character type should be selected
-  - Once prompts are answered then the password should be generated and displayed in an alert or written to the page
-
-*/
-
-// Solution:
-
-// 5. Generate a password
-// 6. Validate the password meets the criteria
-//   a. Contains at least 1 character from each of the selected character sets
-//   b. If does not meet the criteria then re-generate the password
-//   c. If meets the criteria then write the password to the textarea in the HTML document
