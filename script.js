@@ -102,10 +102,11 @@ var generateBtn = document.querySelector("#generate");
 
 // Write password to the #password input
 function writePassword() {
-  var password = generatePassword();
+  // var password = generatePassword();
   var passwordText = document.querySelector("#password");
 
-  passwordText.value = password;
+  // passwordText.value = password;
+  passwordText.value = generatedPassword;
 }
 
 // Add event listener to generate button
@@ -125,29 +126,73 @@ Requirements:
     - Special characters ($@%&*, etc)
   - Code should validate for each input and at least one character type should be selected
   - Once prompts are answered then the password should be generated and displayed in an alert or written to the page
-  
-*/
-
-/*
-
-Solution:
-
-1. Prompt user for length of password
-2. Validate user input is between 8 and 128 characters
-  a. Reject and re-prompt if user selects a value out of bounds
-  b. If value is valid then continue through the program
-3. Prompt user if they want to include each character type:
-  a. Lowercase characters
-  b. Uppercase characters
-  c. Numeric characters
-  d. Special characters
-4. Validate that the user selected at least 1 of the character sets
-  a. If user did not select any character sets then re-prompt them
-  b. If user has at least 1 character set then continue the program
-5. Generate a password
-6. Validate the password meets the criteria
-  a. Contains at least 1 character from each of the selected character sets
-  b. If does not meet the criteria then re-generate the password
-  c. If meets the criteria then write the password to the textarea in the HTML document
 
 */
+
+// Solution:
+
+// 1. Prompt user for length of password
+var passwordLength = prompt(
+  "What length of password do you want?\n Between 8 and 128 characters."
+);
+
+// 2. Validate user input is between 8 and 128 characters
+//   a. Reject and re-prompt if user selects a value out of bounds
+//   b. If value is valid then continue through the program
+
+// this only prompts one more time and then doesn't prompt again - may need to use a while() loop to check passwordLength and continue to re-prompt, but would possibly prevent cancelling out.
+if (passwordLength < 8 || passwordLength > 128) {
+  passwordLength = prompt(
+    "That length is not valid, please choose a value between 8 and 128."
+  );
+}
+
+// 3. Prompt user if they want to include each character type:
+//   a. Lowercase characters
+//   b. Uppercase characters
+//   c. Numeric characters
+//   d. Special characters
+var includeLowercase = confirm("Do you want to include lowercase characters?");
+var includeUppercase = confirm("Do you want to include uppercase characters?");
+var includeNumeric = confirm("Do you want to include numeric characters?");
+var includeSpecial = confirm("Do you want to include special characters?");
+
+// 4. Validate that the user selected at least 1 of the character sets
+//   a. If user did not select any character sets then re-prompt them
+//   b. If user has at least 1 character set then continue the program
+var generatedPassword = "";
+
+if (includeLowercase || includeUppercase || includeNumeric || includeSpecial) {
+  for (var i = 0; i < passwordLength; i++) {
+    includeLowercase
+      ? (generatedPassword +=
+          lowerCasedCharacters[
+            Math.floor(Math.random() * lowerCasedCharacters.length)
+          ])
+      : (generatedPassword += "");
+    includeUppercase
+      ? (generatedPassword +=
+          upperCasedCharacters[
+            Math.floor(Math.random() * upperCasedCharacters.length)
+          ])
+      : (generatedPassword += "");
+    includeNumeric
+      ? (generatedPassword +=
+          numericCharacters[
+            Math.floor(Math.random() * numericCharacters.length)
+          ])
+      : (generatedPassword += "");
+    includeSpecial
+      ? (generatedPassword +=
+          specialCharacters[
+            Math.floor(Math.random() * specialCharacters.length)
+          ])
+      : (generatedPassword += "");
+  }
+}
+
+// 5. Generate a password
+// 6. Validate the password meets the criteria
+//   a. Contains at least 1 character from each of the selected character sets
+//   b. If does not meet the criteria then re-generate the password
+//   c. If meets the criteria then write the password to the textarea in the HTML document
