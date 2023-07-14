@@ -1,118 +1,153 @@
 // Array of special characters to be included in password
 var specialCharacters = [
-  '@',
-  '%',
-  '+',
-  '\\',
-  '/',
+  "@",
+  "%",
+  "+",
+  "\\",
+  "/",
   "'",
-  '!',
-  '#',
-  '$',
-  '^',
-  '?',
-  ':',
-  ',',
-  ')',
-  '(',
-  '}',
-  '{',
-  ']',
-  '[',
-  '~',
-  '-',
-  '_',
-  '.'
+  "!",
+  "#",
+  "$",
+  "^",
+  "?",
+  ":",
+  ",",
+  ")",
+  "(",
+  "}",
+  "{",
+  "]",
+  "[",
+  "~",
+  "-",
+  "_",
+  ".",
 ];
 
 // Array of numeric characters to be included in password
-var numericCharacters = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+var numericCharacters = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
 
 // Array of lowercase characters to be included in password
 var lowerCasedCharacters = [
-  'a',
-  'b',
-  'c',
-  'd',
-  'e',
-  'f',
-  'g',
-  'h',
-  'i',
-  'j',
-  'k',
-  'l',
-  'm',
-  'n',
-  'o',
-  'p',
-  'q',
-  'r',
-  's',
-  't',
-  'u',
-  'v',
-  'w',
-  'x',
-  'y',
-  'z'
+  "a",
+  "b",
+  "c",
+  "d",
+  "e",
+  "f",
+  "g",
+  "h",
+  "i",
+  "j",
+  "k",
+  "l",
+  "m",
+  "n",
+  "o",
+  "p",
+  "q",
+  "r",
+  "s",
+  "t",
+  "u",
+  "v",
+  "w",
+  "x",
+  "y",
+  "z",
 ];
 
 // Array of uppercase characters to be included in password
 var upperCasedCharacters = [
-  'A',
-  'B',
-  'C',
-  'D',
-  'E',
-  'F',
-  'G',
-  'H',
-  'I',
-  'J',
-  'K',
-  'L',
-  'M',
-  'N',
-  'O',
-  'P',
-  'Q',
-  'R',
-  'S',
-  'T',
-  'U',
-  'V',
-  'W',
-  'X',
-  'Y',
-  'Z'
+  "A",
+  "B",
+  "C",
+  "D",
+  "E",
+  "F",
+  "G",
+  "H",
+  "I",
+  "J",
+  "K",
+  "L",
+  "M",
+  "N",
+  "O",
+  "P",
+  "Q",
+  "R",
+  "S",
+  "T",
+  "U",
+  "V",
+  "W",
+  "X",
+  "Y",
+  "Z",
 ];
 
 // Function to prompt user for password options
-function getPasswordOptions() {
-
-}
+function getPasswordOptions() {}
 
 // Function for getting a random element from an array
-function getRandom(arr) {
-
-}
+function getRandom(arr) {}
 
 // Function to generate password with user input
-function generatePassword() {
-
-}
+function generatePassword() {}
 
 // Get references to the #generate element
-var generateBtn = document.querySelector('#generate');
+var generateBtn = document.querySelector("#generate");
 
 // Write password to the #password input
 function writePassword() {
   var password = generatePassword();
-  var passwordText = document.querySelector('#password');
+  var passwordText = document.querySelector("#password");
 
   passwordText.value = password;
 }
 
 // Add event listener to generate button
-generateBtn.addEventListener('click', writePassword);
+generateBtn.addEventListener("click", writePassword);
+
+/* 
+
+Requirements:
+- Generate a password when the button is clicked
+- Present a series of prompts for password criteria
+  - Length of password
+    - At least 8 characters but no more than 128.
+  - Character types
+    - Lowercase
+    - Uppercase
+    - Numeric
+    - Special characters ($@%&*, etc)
+  - Code should validate for each input and at least one character type should be selected
+  - Once prompts are answered then the password should be generated and displayed in an alert or written to the page
+  
+*/
+
+/*
+
+Solution:
+
+1. Prompt user for length of password
+2. Validate user input is between 8 and 128 characters
+  a. Reject and re-prompt if user selects a value out of bounds
+  b. If value is valid then continue through the program
+3. Prompt user if they want to include each character type:
+  a. Lowercase characters
+  b. Uppercase characters
+  c. Numeric characters
+  d. Special characters
+4. Validate that the user selected at least 1 of the character sets
+  a. If user did not select any character sets then re-prompt them
+  b. If user has at least 1 character set then continue the program
+5. Generate a password
+6. Validate the password meets the criteria
+  a. Contains at least 1 character from each of the selected character sets
+  b. If does not meet the criteria then re-generate the password
+  c. If meets the criteria then write the password to the textarea in the HTML document
+
+*/
