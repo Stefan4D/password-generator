@@ -89,24 +89,115 @@ var upperCasedCharacters = [
 ];
 
 // Function to prompt user for password options
-function getPasswordOptions() {}
+function getPasswordOptions() {
+  // 1. Prompt user for length of password
+  var passwordLength = prompt(
+    "What length of password do you want?\n Between 8 and 128 characters."
+  );
+
+  // 2. Validate user input is between 8 and 128 characters
+  //   a. Reject and re-prompt if user selects a value out of bounds
+  //   b. If value is valid then continue through the program
+
+  // this only prompts one more time and then doesn't prompt again - may need to use a while() loop to check passwordLength and continue to re-prompt, but would possibly prevent cancelling out.
+  // TODO: FIX THIS
+  if (passwordLength < 8 || passwordLength > 128) {
+    passwordLength = prompt(
+      "That length is not valid, please choose a value between 8 and 128."
+    );
+  }
+
+  // 3. Prompt user if they want to include each character type:
+  //   a. Lowercase characters
+  //   b. Uppercase characters
+  //   c. Numeric characters
+  //   d. Special characters
+  var includeLowercase = confirm(
+    "Do you want to include lowercase characters?"
+  );
+  var includeUppercase = confirm(
+    "Do you want to include uppercase characters?"
+  );
+  var includeNumeric = confirm("Do you want to include numeric characters?");
+  var includeSpecial = confirm("Do you want to include special characters?");
+
+  return [
+    includeLowercase,
+    includeUppercase,
+    includeNumeric,
+    includeSpecial,
+    passwordLength,
+  ];
+}
 
 // Function for getting a random element from an array
 function getRandom(arr) {}
 
 // Function to generate password with user input
-function generatePassword() {}
+function generatePassword() {
+  // call this function to get the options for the password
+  var [
+    includeLowercase,
+    includeUppercase,
+    includeNumeric,
+    includeSpecial,
+    passwordLength,
+  ] = getPasswordOptions();
+
+  // 4. Validate that the user selected at least 1 of the character sets
+  //   a. If user did not select any character sets then re-prompt them
+  //   b. If user has at least 1 character set then continue the program
+  var generatedPassword = "";
+
+  if (
+    includeLowercase ||
+    includeUppercase ||
+    includeNumeric ||
+    includeSpecial
+  ) {
+    while (generatedPassword.length < passwordLength) {
+      includeLowercase && generatedPassword.length < passwordLength
+        ? (generatedPassword +=
+            lowerCasedCharacters[
+              Math.floor(Math.random() * lowerCasedCharacters.length)
+            ])
+        : (generatedPassword += "");
+      includeUppercase && generatedPassword.length < passwordLength
+        ? (generatedPassword +=
+            upperCasedCharacters[
+              Math.floor(Math.random() * upperCasedCharacters.length)
+            ])
+        : (generatedPassword += "");
+      includeNumeric && generatedPassword.length < passwordLength
+        ? (generatedPassword +=
+            numericCharacters[
+              Math.floor(Math.random() * numericCharacters.length)
+            ])
+        : (generatedPassword += "");
+      includeSpecial && generatedPassword.length < passwordLength
+        ? (generatedPassword +=
+            specialCharacters[
+              Math.floor(Math.random() * specialCharacters.length)
+            ])
+        : (generatedPassword += "");
+    }
+  } else {
+    alert("You need to include at least 1 character set!");
+    console.log("You need to include at least 1 character set!");
+  }
+  return generatedPassword;
+}
 
 // Get references to the #generate element
 var generateBtn = document.querySelector("#generate");
 
 // Write password to the #password input
 function writePassword() {
-  // var password = generatePassword();
+  var password = generatePassword();
   var passwordText = document.querySelector("#password");
 
-  // passwordText.value = password;
-  passwordText.value = generatedPassword;
+  passwordText.value = password;
+  // passwordText.value = generatedPassword;
 }
 
 // Add event listener to generate button
@@ -130,67 +221,6 @@ Requirements:
 */
 
 // Solution:
-
-// 1. Prompt user for length of password
-var passwordLength = prompt(
-  "What length of password do you want?\n Between 8 and 128 characters."
-);
-
-// 2. Validate user input is between 8 and 128 characters
-//   a. Reject and re-prompt if user selects a value out of bounds
-//   b. If value is valid then continue through the program
-
-// this only prompts one more time and then doesn't prompt again - may need to use a while() loop to check passwordLength and continue to re-prompt, but would possibly prevent cancelling out.
-if (passwordLength < 8 || passwordLength > 128) {
-  passwordLength = prompt(
-    "That length is not valid, please choose a value between 8 and 128."
-  );
-}
-
-// 3. Prompt user if they want to include each character type:
-//   a. Lowercase characters
-//   b. Uppercase characters
-//   c. Numeric characters
-//   d. Special characters
-var includeLowercase = confirm("Do you want to include lowercase characters?");
-var includeUppercase = confirm("Do you want to include uppercase characters?");
-var includeNumeric = confirm("Do you want to include numeric characters?");
-var includeSpecial = confirm("Do you want to include special characters?");
-
-// 4. Validate that the user selected at least 1 of the character sets
-//   a. If user did not select any character sets then re-prompt them
-//   b. If user has at least 1 character set then continue the program
-var generatedPassword = "";
-
-// below solution doesn't work as need to check password length after every addition of a character - added && statement to check current password length
-if (includeLowercase || includeUppercase || includeNumeric || includeSpecial) {
-  while (generatedPassword.length < passwordLength) {
-    includeLowercase && generatedPassword.length < passwordLength
-      ? (generatedPassword +=
-          lowerCasedCharacters[
-            Math.floor(Math.random() * lowerCasedCharacters.length)
-          ])
-      : (generatedPassword += "");
-    includeUppercase && generatedPassword.length < passwordLength
-      ? (generatedPassword +=
-          upperCasedCharacters[
-            Math.floor(Math.random() * upperCasedCharacters.length)
-          ])
-      : (generatedPassword += "");
-    includeNumeric && generatedPassword.length < passwordLength
-      ? (generatedPassword +=
-          numericCharacters[
-            Math.floor(Math.random() * numericCharacters.length)
-          ])
-      : (generatedPassword += "");
-    includeSpecial && generatedPassword.length < passwordLength
-      ? (generatedPassword +=
-          specialCharacters[
-            Math.floor(Math.random() * specialCharacters.length)
-          ])
-      : (generatedPassword += "");
-  }
-}
 
 // 5. Generate a password
 // 6. Validate the password meets the criteria
