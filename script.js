@@ -194,8 +194,11 @@ function generatePassword() {
         : (generatedPassword += "");
     }
   } else {
-    alert("You need to include at least 1 character set!");
-    console.log("You need to include at least 1 character set!");
+    // this is handles if the user cancels out at the very beginning and prevents this alert popping up as passwordLength will be undefined from the empty array
+    if (passwordLength !== undefined) {
+      alert("You need to include at least 1 character set!");
+      console.log("You need to include at least 1 character set!");
+    }
   }
   return generatedPassword;
 }
