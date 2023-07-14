@@ -99,35 +99,45 @@ function getPasswordOptions() {
   //   a. Reject and re-prompt if user selects a value out of bounds
   //   b. If value is valid then continue through the program
 
-  // this only prompts one more time and then doesn't prompt again - may need to use a while() loop to check passwordLength and continue to re-prompt, but would possibly prevent cancelling out.
-  // TODO: FIX THIS
-  if (passwordLength < 8 || passwordLength > 128) {
+  // changed to a while() loop to check passwordLength and continue to re-prompt
+  // if loop checks for null value where user has cancelled out of the prompt
+  while (passwordLength < 8 || passwordLength > 128) {
+    if (passwordLength === null) {
+      break;
+    }
     passwordLength = prompt(
       "That length is not valid, please choose a value between 8 and 128."
     );
   }
 
-  // 3. Prompt user if they want to include each character type:
-  //   a. Lowercase characters
-  //   b. Uppercase characters
-  //   c. Numeric characters
-  //   d. Special characters
-  var includeLowercase = confirm(
-    "Do you want to include lowercase characters?"
-  );
-  var includeUppercase = confirm(
-    "Do you want to include uppercase characters?"
-  );
-  var includeNumeric = confirm("Do you want to include numeric characters?");
-  var includeSpecial = confirm("Do you want to include special characters?");
+  // check for null value for passwordLength
+  if (passwordLength !== null) {
+    // 3. Prompt user if they want to include each character type:
+    //   a. Lowercase characters
+    //   b. Uppercase characters
+    //   c. Numeric characters
+    //   d. Special characters
+    var includeLowercase = confirm(
+      "Do you want to include lowercase characters?"
+    );
+    var includeUppercase = confirm(
+      "Do you want to include uppercase characters?"
+    );
+    var includeNumeric = confirm("Do you want to include numeric characters?");
+    var includeSpecial = confirm("Do you want to include special characters?");
 
-  return [
-    includeLowercase,
-    includeUppercase,
-    includeNumeric,
-    includeSpecial,
-    passwordLength,
-  ];
+    // returning default values of false if any are null
+    return [
+      includeLowercase || false,
+      includeUppercase || false,
+      includeNumeric || false,
+      includeSpecial || false,
+      passwordLength,
+    ];
+  }
+
+  // return an empty array if passwordLength is null
+  return [];
 }
 
 // Function for getting a random element from an array
@@ -135,8 +145,8 @@ function getRandom(arr) {}
 
 // Function to generate password with user input
 function generatePassword() {
-  // call this function to get the options for the password
-  var [
+  // call this function to get the options for the password, uses destructuring to grab each of the named variables.
+  const [
     includeLowercase,
     includeUppercase,
     includeNumeric,
@@ -149,12 +159,14 @@ function generatePassword() {
   //   b. If user has at least 1 character set then continue the program
   var generatedPassword = "";
 
+  // if any of these conditions are true, then the while loop will be triggered
   if (
     includeLowercase ||
     includeUppercase ||
     includeNumeric ||
     includeSpecial
   ) {
+    // this solution puts the character types in a set order, so although each character individually is selected at random, their pattern is pre-determined by the character sets included.
     while (generatedPassword.length < passwordLength) {
       includeLowercase && generatedPassword.length < passwordLength
         ? (generatedPassword +=
