@@ -12,12 +12,12 @@ The production website is deployed [here](https://stefan4d.github.io/password-ge
 
 This has been developed to meet the following Acceptance Criteria:
 
-| Acceptance Criteria                                                                                                                                                                                                                                                  | Solution |
-| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
-| Generate a password when the button is clicked                                                                                                                                                                                                                       | Evidence |
-| Present a series of prompts for password criteria<br/>_ Length of password<br/>&nbsp;_ At least 8 characters but no more than 128.<br/>_ Character types<br/>&nbsp;_ Lowercase<br/>&nbsp;_ Uppercase<br/>&nbsp;_ Numeric<br/>&nbsp;_ Special characters ($@%&_, etc) | Evidence |
-| Code should validate for each input and at least one character type should be selected                                                                                                                                                                               | Evidence |
-| Once prompts are answered then the password should be generated and displayed in an alert or written to the page                                                                                                                                                     |          |
+| Acceptance Criteria                                                                                                                                                                                                                                                                                 | Solution |
+| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
+| Generate a password when the button is clicked                                                                                                                                                                                                                                                      | Evidence |
+| Present a series of prompts for password criteria<br/>- Length of password<br/>&nbsp;&nbsp;- At least 8 characters but no more than 128.<br/>- Character types<br/>&nbsp;&nbsp;- Lowercase<br/>&nbsp;&nbsp;- Uppercase<br/>&nbsp;&nbsp;- Numeric<br/>&nbsp;&nbsp;- Special characters ($@%&\_, etc) | Evidence |
+| Code should validate for each input and at least one character type should be selected                                                                                                                                                                                                              | Evidence |
+| Once prompts are answered then the password should be generated and displayed in an alert or written to the page                                                                                                                                                                                    | Evidence |
 
 ## Learning Outcomes
 
