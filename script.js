@@ -160,6 +160,7 @@ function generatePassword() {
     includeSpecial
   ) {
     // this solution puts the character types in a set order, so although each character individually is selected at random, their pattern is pre-determined by the character sets included.
+    // to make it so that the order is random and still validate each character type selected is included, then would need to have a state object to track each type included and update that object through the iterations.  Then the final check just needs to check that object to validate each required type has been included e.g. specials_include = true;
     // ternary operator 'else' statement set to null to reduce amount of code - this works as the returned value isn't used anywhere
     while (generatedPassword.length < passwordLength) {
       includeLowercase && generatedPassword.length < passwordLength
